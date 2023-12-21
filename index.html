@@ -4,7 +4,6 @@
 <head>
 
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Lancements de Fusées SpaceX</title>
@@ -13,10 +12,16 @@
         body {
             font-family: 'Open Sans', sans-serif;
             text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
         }
 
-        h1 {
-            color: #5c9bb7;
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            font-size: 24px;
         }
 
         .launch-container {
@@ -28,16 +33,34 @@
         }
 
         .launch-card {
+            background-color: white;
             border: 1px solid #ddd;
             border-radius: 8px;
-            padding: 20px;
-            width: 300px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            overflow: hidden;
+            width: 200px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .launch-card:hover {
+            transform: scale(1.05);
         }
 
         .launch-card img {
             width: 100%;
-            border-radius: 4px;
-            margin-bottom: 10px;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .launch-card h3 {
+            margin: 10px 0;
+        }
+
+        .launch-card p {
+            color: #666;
+            margin: 5px 0;
         }
     </style>
 
@@ -63,6 +86,38 @@
     <script src="https://unpkg.com/vue@3"></script>
 
 
+
+    <script>
+
+        // Créer App
+        const app = Vue.createApp({
+
+            data() {
+                return {
+                    launches: [],
+                };
+            },
+
+            methods: {
+                // Méthode pour formater la date de lancement
+                formatDate(date) {
+                    return new Date(date).toLocaleDateString();
+                },
+            },
+
+            // Lifecycle hook - executed after the instance is mounted
+            mounted() {
+                // Récupérer les lancements de SpaceX depuis l'API
+                fetch('https://api.spacexdata.com/v2/launches')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Update launches data
+                        this.launches = data;
+                    })
+                    .catch(error => console.error('Error fetching launches:', error));
+            },
+        }).mount('#app'); // Mount the app to the specified element
+    </script>
 
 
 </body>
