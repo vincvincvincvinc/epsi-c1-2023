@@ -46,6 +46,25 @@
 
 <body>
 
+    <h1>Lancements Missions SpaceX</h1>
+
+    <div class="launch-container" id="app">
+        <div class="launch-card" v-for="launch in launches" :key="launch.flight_number">
+            <img :src="launch.links.mission_patch" alt="Image de lancement">
+
+            <h3>{{ launch.mission_name }}</h3>
+
+            <p>Fusée : {{ launch.rocket.rocket_name }}</p>
+            <p>Date de lancement : {{ formatDate(launch.launch_date_utc) }}</p>
+
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3"></script>
+
+
+
+
 </body>
 
 </html>
